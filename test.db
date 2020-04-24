@@ -1,0 +1,5 @@
+record(ai, "temperature:water")
+{
+    field(DESC, "Water temperature in the fish tank")
+}
+

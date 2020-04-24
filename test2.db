@@ -1,0 +1,17 @@
+record(ai, "temperature:water")
+{
+    field(DESC, "Water temperature in the fish tank")
+    field(HOPR, "100")
+    field(LOPR, "0")
+    field(EGU,  "C")
+}
+
+record(ao, "temperature:setpoint")
+{
+	field(OUT, "temperature:water")
+	field(DRVH, "100")
+	field(DRVL, "0")
+	field(EGU, "C")
+	field(FLNK, "temperature:water")
+}
+
