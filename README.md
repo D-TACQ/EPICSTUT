@@ -37,7 +37,6 @@ acq400ioc db/st3.cmd
 Into Folder CSS
 1. From Navigator, select CSS/td2.opi, double click, run
 
-![Image of TD2.opi]
-(https://github.com/D-TACQ/EPICSTUT/blob/master/td2.opi.png)
+![GitHub](D-TACQ/EPICSTUT/blob/master/td2.opi.png)
 
 
