@@ -35,4 +35,7 @@ acq400ioc db/st3.cmd
 Into Folder CSS
 3. From Navigator, select CSS/td2.opi, double click, run
 
+![Image of TD2.opi]
+(./td2.opi.png)
+
 
