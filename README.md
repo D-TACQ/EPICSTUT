@@ -36,6 +36,6 @@ Into Folder CSS
 3. From Navigator, select CSS/td2.opi, double click, run
 
 ![Image of TD2.opi]
-(./td2.opi.png)
+(https://github.com/D-TACQ/EPICSTUT/blob/master/td2.opi.png)
 
 
