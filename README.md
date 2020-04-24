@@ -23,10 +23,11 @@ epics> ^X
 ### copy sample db
 ```
 scp -r db root@UUT:/usr/local/epics
-
+```
+### run the IOC (nb needs cmd file, test3.db only)
+```
 ssh root@UUT
 cd /usr/local/epics
-# run the IOC (different interface to the above).
 acq400ioc db/st3.cmd
 ```
 
