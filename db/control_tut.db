@@ -1,0 +1,34 @@
+record(ao, "${UUT}:${SITE}:SET:${CH}")
+{
+	field(DESC, "SETPOINT for AO channel ${CH}")
+	field(DRVH, "10")
+	field(DRVL, "-10")
+	field(EGU,  "V")
+}
+
+record(ao, "${UUT}:${SITE}:GAIN:${CH}")
+{
+	field(DESC, "Kp for feedback loop ${CH}")
+	field(DRVH, "2")
+	field(DRVL, "-2")
+	field(EGU,  "V/V")
+	field(VAL,  "0.5")
+}
+
+record(bi, "scanner") 
+{
+	field(SCAN, "1 second")
+	field(FLNK, "${UUT}:${SITE}:CONTROL:01")
+}
+
+
+record(calcout, "${UUT}:${SITE}:CONTROL:01") 
+{
+	field(DESC, "proportional controller")
+	field(INPA, "${UUT}:${SITE}:SET:01")
+	field(INPB, "${UUT}:1:AI:CH:01")
+	field(INPG, "${UUT}:${SITE}:GAIN:01")
+	field(CALC, "VAL + (A-B)*G")
+	field(OUT,  "${UUT}:${SITE}:AO:SLOW_SET:CH:01 PP")
+}
+

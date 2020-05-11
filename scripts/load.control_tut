@@ -1,0 +1,28 @@
+
+
+make_SP() {
+	site=$1
+	
+	let nchan=$(cat /etc/acq400/$site/NCHAN)
+
+	let ch=0; while [ $ch -lt $nchan ]; do
+		let ch=$ch+1
+		cid=$(printf "%02d" $ch)
+		let IDX=$ch
+
+		
+		PRAMS="UUT=${HOST},SITE=${site},CH=${cid},idx=${IDX}"
+		echo dbLoadRecords\(\"db/control_tut.db\",\"${PRAMS}\"\)
+	done	
+}
+
+
+for ACQ400 in /etc/acq400/[123456]
+do
+	if [ -e ${ACQ400}/module_type ]; then
+		model=$(cat ${ACQ400}/module_type)
+	    	if [ "$(hasOutput $model)" = "yes" ]; then		
+			make_SP $(cat $ACQ400/site)
+		fi
+	fi
+done
