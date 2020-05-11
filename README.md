@@ -1,8 +1,8 @@
 # Repeat TUT1 but with real data on live IOC
 
-REFS:
-https://en.wikipedia.org/wiki/PID_controller
-https://en.wikipedia.org/wiki/PID_controller#/media/File:PID_en.svg
+## REFS:
+ - https://en.wikipedia.org/wiki/PID_controller
+ - https://en.wikipedia.org/wiki/PID_controller#/media/File:PID_en.svg
 ### u1 = (r1 - y0)*Kp
 
 ```
