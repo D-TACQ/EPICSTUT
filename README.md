@@ -28,8 +28,7 @@ What does this do?
 	tar xvf /mnt/local/control_tut.tar -C /usr/local/epics 
 ```
   - Second, when the IOC loads, it will run this script.
-```
-export IOC_PREINIT=./scripts/load.control_tut
+```export IOC_PREINIT=./scripts/load.control_tut
 ```
 The script instantiates NCHAN control records.
 end result, like this:
