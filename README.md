@@ -15,16 +15,16 @@ What does this do?
 /mnt/local/sysconfig/epics.sh
 
 First, unpack the patch package
-'''[ ! -e /usr/local/epics/db/control_tut.db ] && \
+```[ ! -e /usr/local/epics/db/control_tut.db ] && \
 	tar xvf /mnt/local/control_tut.tar -C /usr/local/epics 
-'''
+```
 Second, when the IOC loads, it will run this script.
-'''
+```
 export IOC_PREINIT=./scripts/load.control_tut
-'''
+```
 The script instantiates NCHAN control records.
 end result, like this:
-'''
+```
 acq2106_199> grep control_tut /tmp/st.cmd 
 dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=01,idx=1")
 dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=02,idx=2")
@@ -42,8 +42,7 @@ dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=13,idx=13")
 dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=14,idx=14")
 dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=15,idx=15")
 dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=16,idx=16")
-
-'''
+```
 
 #### Key Points
  - .db file is configured by PARAMETERS eg ${UUT}, ${CH}
@@ -52,7 +51,7 @@ dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=16,idx=16")
  - eg GAIN has parameter ${CH} in the name, we get NCHAN*GAIN records, but
  - CONTROL has literal :01 in the name, we get just the one record.
 .. that's for this demo ONLY, more normally, we'd include ${CH} in the name for CONTROL and get NCHAN CONTROL records also..
-'''
+```
 acq2106_199> grep :5:GAIN /tmp/records.dbl
 acq2106_199:5:GAIN:01
 acq2106_199:5:GAIN:02
@@ -70,10 +69,11 @@ acq2106_199:5:GAIN:13
 acq2106_199:5:GAIN:14
 acq2106_199:5:GAIN:15
 acq2106_199:5:GAIN:16
+```
+```
 acq2106_199> grep :5:CONTROL /tmp/records.dbl
 acq2106_199:5:CONTROL:01
-
-'''
+```
 
 
 ### log in and shut down the existing IOC (console, <CTRL>-T, <CTRL>-X
