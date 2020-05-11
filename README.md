@@ -3,7 +3,7 @@
 REFS:
 https://en.wikipedia.org/wiki/PID_controller
 https://en.wikipedia.org/wiki/PID_controller#/media/File:PID_en.svg
-
+### u1 = (r1 - y0)*Kp
 
 ```
 git clone https://github.com/D-TACQ/EPICSTUT.git
@@ -84,6 +84,56 @@ acq2106_199> grep :5:CONTROL /tmp/records.dbl
 acq2106_199:5:CONTROL:01
 ```
 
+ - This is the core control record:
+```
+record(calcout, "${UUT}:${SITE}:CONTROL:01")
+{
+        field(DESC, "proportional controller")
+        field(INPA, "${UUT}:${SITE}:SET:01")
+        field(INPB, "${UUT}:1:AI:CH:01")
+        field(INPG, "${UUT}:${SITE}:GAIN:01")
+        field(CALC, "VAL + (A-B)*G")
+        field(OUT,  "${UUT}:${SITE}:AO:SLOW_SET:CH:01 PP")
+}
+
+```
+
+ - Control With pyepics:
+  - https://github.com/D-TACQ/acq400_hapi/blob/master/test_apps/pyepics_control2.py
+  - creates PyEpics objects to map all the PVS
+```
+    pv_Kp = epics.PV("{}:{}:GAIN:{:02d}".format(uut, args.dac, ch))
+    pv_r1 = epics.PV("{}:{}:SET:{:02d}".format(uut, args.dac, ch))
+    pv_y0 = epics.PV("{}:{}:AI:CH:{:02d}".format(uut, args.adc, ch))
+    pv_u1 = epics.PV("{}:{}:AO:SLOW_SET:CH:{:02d}".format(uut, args.dac, ch))
+```
+  - this is the core of the control:
+```
+    while True:
+        Kp = pv_Kp.get() 
+  	r1 = pv_r1.get()
+        y0 = pv_y0.get()
+        u0 = pv_u1.get()
+
+        u1 = u0 + (r1-y0)*Kp
+  
+        pv_u1.put(u1)
+
+        time.sleep(0.8) # Wait for the DAC value to change
+
+```
+
+  - start two single-channel control processes on host computer
+```
+[peter@andros test_apps]$ ./pyepics_control2.py --ch=2 acq2106_199 &
+[1] 24422
+[peter@andros test_apps]$ Starting control loop 2
+
+[peter@andros test_apps]$ ./pyepics_control2.py --ch=3 acq2106_199 &
+[2] 24550
+```
+
+
 
 ## GUI Client
 
@@ -93,7 +143,11 @@ Into Folder CSS
 1. From Navigator, select CSS/control_launcher.opi, open in editor, set macros and save:
  - UUT
  - SITE
-1. Press the > run button
 ![GitHub](images/css-design.png)
+1. Press the > run button
+ - Show controllers running with different gains, different controller locatons.
+![GitHub](images/css-run.png)
+
+
 
 
