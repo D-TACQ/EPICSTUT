@@ -101,6 +101,7 @@ record(calcout, "${UUT}:${SITE}:CONTROL:01")
  - Control With pyepics:
   - https://github.com/D-TACQ/acq400_hapi/blob/master/test_apps/pyepics_control2.py
   - creates PyEpics objects to map all the PVS
+  - nb python "{}".format(uut) is the python analog to epics "${UUT}"
 ```
     pv_Kp = epics.PV("{}:{}:GAIN:{:02d}".format(uut, args.dac, ch))
     pv_r1 = epics.PV("{}:{}:SET:{:02d}".format(uut, args.dac, ch))
@@ -143,6 +144,7 @@ Into Folder CSS
 1. From Navigator, select CSS/control_launcher.opi, open in editor, set macros and save:
  - UUT
  - SITE
+#### cs-studio ALSO makes big use of macros, similar to the EPICS db file ..
 ![GitHub](images/css-design.png)
 1. Press the > run button
  - Show controllers running with different gains, different controller locatons.
