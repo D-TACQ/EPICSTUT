@@ -3,7 +3,7 @@
 ## REFS:
  - https://en.wikipedia.org/wiki/PID_controller
  - https://en.wikipedia.org/wiki/PID_controller#/media/File:PID_en.svg
-### u1 = (r1 - y0)*Kp
+### u1 = u0 + (r1 - y0)*Kp
 
 ```
 git clone https://github.com/D-TACQ/EPICSTUT.git
@@ -58,8 +58,6 @@ dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=16,idx=16")
  - .db file creates a set of records each time it's loaded.
  - BUT records with expanded (literal) parameters => we only get ONE record
  - eg GAIN has parameter ${CH} in the name, we get NCHAN*GAIN records, but
- - CONTROL has literal :01 in the name, we get just the one record.
-.. that's for this demo ONLY, more normally, we'd include ${CH} in the name for CONTROL and get NCHAN CONTROL records also..
 ```
 acq2106_199> grep :5:GAIN /tmp/records.dbl
 acq2106_199:5:GAIN:01
@@ -79,6 +77,8 @@ acq2106_199:5:GAIN:14
 acq2106_199:5:GAIN:15
 acq2106_199:5:GAIN:16
 ```
+ - CONTROL has literal :01 in the name, we get just the one record.
+.. that's for this demo ONLY, more normally, we'd include ${CH} in the name for CONTROL and get NCHAN CONTROL records also..
 ```
 acq2106_199> grep :5:CONTROL /tmp/records.dbl
 acq2106_199:5:CONTROL:01
@@ -149,6 +149,12 @@ Into Folder CSS
 1. Press the > run button
  - Show controllers running with different gains, different controller locatons.
 ![GitHub](images/css-run.png)
+
+## What did we show:
+
+ 1. Extension of existing live IOC, added new records (SET, GAIN), hooked to existing records (AI:CH, AO:SLOWSET)
+ 1. Implemented simple controllers both inside the IOC (CALC record) and externally (PyEpics program)
+ 1. Showed use of macros to generalise records and OPI's.
 
 
 
