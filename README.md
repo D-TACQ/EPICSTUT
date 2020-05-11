@@ -1,5 +1,14 @@
-# Create and view some EPICS records. Repeat TUT1 but with real data on live IOD
+# Repeat TUT1 but with real data on live IOC
 
+REFS:
+https://en.wikipedia.org/wiki/PID_controller
+https://en.wikipedia.org/wiki/PID_controller#/media/File:PID_en.svg
+
+
+```
+git clone https://github.com/D-TACQ/EPICSTUT.git
+git checkout -b TUT2 origin/TUT2
+```
 ## Extend live IOC
 
  - sorry, there is some special stuff here:
@@ -45,7 +54,7 @@ dbLoadRecords("db/control_tut.db","UUT=acq2106_199,SITE=5,CH=16,idx=16")
 ```
 
 #### Key Points
- - .db file is configured by PARAMETERS eg ${UUT}, ${CH}
+ - .db file is configured by MACRO PARAMETERS eg ${UUT}, ${CH}
  - .db file creates a set of records each time it's loaded.
  - BUT records with expanded (literal) parameters => we only get ONE record
  - eg GAIN has parameter ${CH} in the name, we get NCHAN*GAIN records, but
@@ -76,33 +85,15 @@ acq2106_199:5:CONTROL:01
 ```
 
 
-### log in and shut down the existing IOC (console, <CTRL>-T, <CTRL>-X
-ssh root@UUT
-eg UUT=acq1001_301
-```
-acq1001_301> acq4xx-epics-console 
-^T
-@@@ Toggled auto restart to OFF
-epics> ^X
-```
-### copy sample db
-```
-scp -r db root@UUT:/usr/local/epics
-```
-### run the IOC (nb needs cmd file, test3.db only)
-```
-ssh root@UUT
-cd /usr/local/epics
-acq400ioc db/st3.cmd
-```
-
 ## GUI Client
 
 1. Create cs-studio workspace
 1. Import.. FileSystem .. Navigate to TUT/OPI, select OPI, td2.opi
 Into Folder CSS
-1. From Navigator, select CSS/td2.opi, double click, run
-
-![GitHub](td2.opi.png)
+1. From Navigator, select CSS/control_launcher.opi, open in editor, set macros and save:
+ - UUT
+ - SITE
+1. Press the > run button
+![GitHub](images/css-design.png)
 
 
