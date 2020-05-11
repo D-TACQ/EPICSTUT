@@ -15,19 +15,19 @@ git checkout -b TUT2 origin/TUT2
 
 ### Copy extension to UUT:
 
- - scp control_tut.tar root@UUT:/mnt/local
-
- - scp sysconfig/epics.sh root@UUT:/mnt/local/sysconfig/epics.sh
-
+```
+scp control_tut.tar root@UUT:/mnt/local
+scp sysconfig/epics.sh root@UUT:/mnt/local/sysconfig/epics.sh
+```
 What does this do?
 
-/mnt/local/sysconfig/epics.sh
+ - /mnt/local/sysconfig/epics.sh:
 
-First, unpack the patch package
+  - First, unpack the patch package
 ```[ ! -e /usr/local/epics/db/control_tut.db ] && \
 	tar xvf /mnt/local/control_tut.tar -C /usr/local/epics 
 ```
-Second, when the IOC loads, it will run this script.
+  - Second, when the IOC loads, it will run this script.
 ```
 export IOC_PREINIT=./scripts/load.control_tut
 ```
